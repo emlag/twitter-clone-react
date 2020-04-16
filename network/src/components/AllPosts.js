@@ -11,32 +11,43 @@ class AllPosts extends Component {
         super(props);
         this.state = {
             availPosts: [],
-            currPage: 1
+            currPage: 1,
+            numPages: 0
         };
     }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.state.currPage !== prevState.currPage)
-        {
+        if (this.state.currPage !== prevState.currPage) {
             getPosts(this, `posts?page=${this.state.currPage}`);
-            console.log("something changed");
+            console.log("numPates in didUpdate");
+            // console.log(this.state.numPages);
+            console.log(this.state.currPage);
         }
     }
 
     nextPage = (event) => {
         event.preventDefault();
-        this.setState({
-            currPage: this.state.currPage + 1
-        });
+        let newPageVal = this.state.currPage + 1;
+
+        if (newPageVal <= this.state.numPages) {
+            this.setState({
+                currPage: this.state.currPage + 1
+            });
+        }
 
         console.log("next page!");
     };
 
     prevPage = (event) => {
         event.preventDefault();
-        this.setState({
-            currPage: this.state.currPage - 1
-        });
+        let newPageVal = this.state.currPage - 1;
+        if (newPageVal > 0) {
+            this.setState({
+                currPage: this.state.currPage - 1
+            });
+        }
         console.log("prev page!");
+
     };
 
     render() {
@@ -45,7 +56,8 @@ class AllPosts extends Component {
                 <ShowPosts allPosts={this.state.availPosts}/>
                 <nav aria-label="Page navigation example">
                     <ul className="pagination">
-                        <li className="page-item"><a onClick={this.prevPage} className="page-link" href="!#">Previous</a>
+                        <li className="page-item"><a onClick={this.prevPage} className="page-link"
+                                                     href="!#">Previous</a>
                         </li>
                         {/*<li className="page-item"><a className="page-link" href="#">1</a></li>*/}
                         {/*<li className="page-item"><a className="page-link" href="#">2</a></li>*/}

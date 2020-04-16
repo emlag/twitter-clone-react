@@ -15,9 +15,11 @@ function getPosts(comp, path) {
             };
             postsToShow.push(post);
         }
-        console.log(postsToShow);
+        // console.log(postsToShow);
+        let numPages = data["num_pages"];
         comp.setState({
             availPosts: postsToShow,
+            numPages: numPages
         })
     })
 }

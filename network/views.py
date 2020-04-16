@@ -58,12 +58,12 @@ def posts(request):
 
     # `/posts?start=${start}&end=${end}`
     page_num = int(request.GET.get("page") or 1)
-    p = Paginator(all_posts, 3)
+    p = Paginator(all_posts, 10)
     page_show = p.page(page_num)
     posts_json = [post.serialize() for post in page_show]
     # posts_json.append({"num_pages": p.num_pages})
 
-    return JsonResponse({"posts": posts_json, "num_page": p.num_pages}, safe=False)
+    return JsonResponse({"posts": posts_json, "num_pages": p.num_pages}, safe=False)
 
 
 def profreq(request, username):
