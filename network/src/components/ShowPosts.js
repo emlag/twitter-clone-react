@@ -15,13 +15,13 @@ class ShowPosts extends Component {
             numPages: 1,
             path: props.pathToPosts,
             refresh: this.props.refresh,
-            currUser: ''
+            currUser: '',
+            errorMessage: ''
         };
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(this.props.refresh !== prevProps.refresh)
-        {
+        if (this.props.refresh !== prevProps.refresh) {
             getPosts(this, `${this.state.path}?page=${this.state.currPage}`);
         }
         if (this.state.currPage !== prevState.currPage) {
@@ -94,10 +94,9 @@ class ShowPosts extends Component {
         };
 
         return (
-            <div>
+            <div id="posts-found">
                 {toDisplay}
-
-                <nav aria-label="Page navigation example">
+                <nav aria-label="Page navigation">
                     <ul className="pagination">
                         <li className={disablePrev()}><a onClick={this.prevPage} className="page-link"
                                                          href="!#">Previous</a>
@@ -108,7 +107,6 @@ class ShowPosts extends Component {
                         </li>
                     </ul>
                 </nav>
-                {/*<div>Total Posts: {this.props.newPostsCount} </div>*/}
             </div>
 
         )

@@ -53,8 +53,6 @@ body {
     justify-self: end;
 }
 
-
-
 .tweet-header {
     display: grid;
     grid-template-columns: 1fr 1.25fr 1.25fr 4fr;
@@ -74,13 +72,22 @@ body {
     justify-self: end;
 }
 
+.post .edit-link {
+    color: rgba(29, 161, 242, 1.00)
+}
+
+.post .edit-link:hover {
+    cursor: pointer;
+    color: blue;
+}
+
 .bg-card {
     background-color: rgb(21, 32, 43);
     color: rgb(255, 255, 255);
 }
 
 .post {
-    color: white;
+    /*color: white;*/
     /*height: 150px;*/
     /*margin: 10px auto;*/
     border-radius: 5px;

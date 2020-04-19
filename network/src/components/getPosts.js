@@ -1,8 +1,12 @@
 import React from 'react';
 
 function getPosts(comp, path) {
-    fetch(path).then(results => {
-        return results.json();
+    fetch(path).then(response => {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        } else {
+            return response.json();
+        }
     }).then(data => {
         let postsToShow = [];
         let posts = data["posts"];
@@ -27,6 +31,11 @@ function getPosts(comp, path) {
             currUser: currUser,
         })
     })
+        .catch(err => {
+            comp.setState({
+                errorMessage: err
+            })
+        })
 }
 
 export default getPosts;

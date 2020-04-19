@@ -16,16 +16,19 @@ class Profile extends Component {
                 following: 0,
                 email: '',
                 isFollowing: false
-            }
-
+            },
+            errorMessage: ''
         };
     }
 
     getProfInfo = (currUser) => {
         fetch(`/profreq/${currUser}`)
             .then(response => {
-                return response.json();
-                // console.log(response);
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                } else {
+                    return response.json();
+                }
             })
             .then(data => {
                 console.log(data);
@@ -39,6 +42,11 @@ class Profile extends Component {
                         isFollowing: data["isFollowing"]
                     }
                 })
+            })
+            .catch(err => {
+                this.setState({
+                    errorMessage: err + ": User Most Likely Doesn't Exist"
+                });
             })
     };
 
@@ -54,45 +62,60 @@ class Profile extends Component {
             .then(response => {
                 if (!response.ok) {
                     throw Error(response.statusText);
+                } else {
+                    return response.json();
                 }
-
-                return response.json();
             })
             .then(data => {
                 console.log(data);
                 this.getProfInfo(this.state.currentUser.username);
             })
             .catch(err => {
-                console.log(err);
+
             })
     };
 
     render() {
         const followButton = () => {
-            if (this.state.currentUser.showFollow)
-            {
-               return <button onClick={this.updateFollow} className="btn" id="follow-button">
-                        {this.state.currentUser.isFollowing === true ? "UnFollow" : "Follow"}</button>
+            if (this.state.currentUser.showFollow) {
+                return <button onClick={this.updateFollow} className="btn" id="follow-button">
+                    {this.state.currentUser.isFollowing === true ? "UnFollow" : "Follow"}</button>
+            }
+        };
+        const showProfile = () => {
+            if (this.state.errorMessage) {
+                return (
+                    <div className="alert alert-primary" role="alert">
+                        {this.state.errorMessage}
+                    </div>
+                )
+            } else {
+                return (
+                    <div>
+                        <div className="profile-header">
+                            <div id="profile-image">
+                                <img src="https://img.icons8.com/doodle/48/000000/name.png"/>
+                            </div>
+                            {followButton()}
+                        </div>
+                        <div id="profile-username">
+                            {this.state.currentUser.username}
+                        </div>
+                        <div id="profile-handle">
+                            {this.state.currentUser.email}
+                        </div>
+                        <div id="profile-follow">
+                            {this.state.currentUser.following} Following {this.state.currentUser.followers} Followers
+                        </div>
+
+                    </div>
+                )
             }
         };
 
         return (
             <div className="profile-container">
-                <div className="profile-header">
-                    <div id="profile-image">
-                        Image Here
-                    </div>
-                    {followButton()}
-                </div>
-                <div id="profile-username">
-                    {this.state.currentUser.username}
-                </div>
-                <div id="profile-handle">
-                    {this.state.currentUser.email}
-                </div>
-                <div id="profile-follow">
-                    {this.state.currentUser.following} Following {this.state.currentUser.followers} Followers
-                </div>
+                {showProfile()}
                 <ShowPosts pathToPosts={`/posts/${this.state.currentUser.username}`}/>
             </div>
         );

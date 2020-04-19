@@ -22,7 +22,6 @@ class LikeButton extends Component {
         })
     };
 
-
     render() {
         return (
 

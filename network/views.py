@@ -67,11 +67,16 @@ def paginate(request, posts_to_show):
     page_show = p.page(page_num)
 
     to_show = []
+
     for post in page_show:
         ser = post.serialize()
-        try:
-            like = Like.objects.get(user=request.user, post=post)
-        except Like.DoesNotExist:
+
+        if request.user.is_authenticated:
+            try:
+                like = Like.objects.get(user=request.user, post=post)
+            except Like.DoesNotExist:
+                like = None
+        else:
             like = None
 
         ser["isLiked"] = like is not None
@@ -82,9 +87,17 @@ def paginate(request, posts_to_show):
 
 
 def update_post(request, post_id):
-    post = Post.objects.get(id=post_id)
+    try:
+        post = Post.objects.get(id=post_id)
+    except Post.DoesNotExist:
+        return JsonResponse({
+            "error": "post id is invalid"
+        }, status=400)
 
-    print(post)
+    if not request.user.is_authenticated:
+        return JsonResponse({
+            "error": "must be signed in to update or like"
+        }, status=400)
 
     if request.method == "PUT":
         data = json.loads(request.body)
@@ -97,14 +110,18 @@ def update_post(request, post_id):
                 Like.objects.get(user=request.user, post=post).delete()
 
         if data.get("new_text") is not None:
-            if request.user == post.author:  # prevent others from changing tweet text
+            if request.user != post.author:  # prevent others from changing tweet text
+                return JsonResponse({
+                    "error": "invalid permission to update this tweet"
+                }, status=400)
+            else:
                 post.body = data["new_text"]
 
         likes = Like.objects.filter(post=post).count()
         post.likes_count = likes
         post.save()
         return JsonResponse({
-            "success": "all went well"
+            "success": "post updated"
         }, safe=False)
     else:
         return JsonResponse({
@@ -113,28 +130,34 @@ def update_post(request, post_id):
 
 
 def profreq(request, username):
-    print("in profreq/")
-    user_found = User.objects.get(username__exact=username)
+    try:
+        user_found = User.objects.get(username__exact=username)
+    except User.DoesNotExist:
+        return JsonResponse({
+            "error": "user not found"
+        }, status=400)
 
-    # TODO handle user not found!
-    # show the username
-    # show number of followers
-    # shows number of following
-    following = Follow.objects.filter(user__username__exact=username).all()
+    is_following = Follow.objects.filter(user__username__exact=username).all()
     followers = Follow.objects.filter(target__username__exact=username).all()
 
-    try:
-        fol = Follow.objects.get(user=request.user, target=user_found)
-    except Follow.DoesNotExist:
+    if request.user.is_authenticated:
+        try:
+            fol = Follow.objects.get(user=request.user, target=user_found)
+        except Follow.DoesNotExist:
+            fol = None
+    else:
         fol = None
 
-    show = request.user.username != username
+    if request.user.is_authenticated:
+        show = request.user.username != username
+    else:
+        show = False
 
     return_info = {
         "user": username,
         "email": user_found.email,
         "followers": followers.count(),
-        "following": following.count(),
+        "following": is_following.count(),
         "isFollowing": fol is not None,
         "showFollow": show
     }
@@ -144,7 +167,15 @@ def profreq(request, username):
 
 @login_required
 def follow(request, target_user):
-    target = User.objects.get(username__exact=target_user)
+    try:
+        target = User.objects.get(username__exact=target_user)
+        if request.user.username == target_user:
+            return JsonResponse({
+                "error": "Can't follow yourself"
+            }, status=400)
+    except User.DoesNotExist:
+        target = None
+
     if target is not None:
         if request.method == "PUT":
             try:
@@ -176,9 +207,14 @@ def follow(request, target_user):
 @login_required
 def following(request):
     # get users that this guy is following
-    follows = Follow.objects.filter(user__exact=request.user).all()
+    if request.user.is_authenticated:
+        follows = Follow.objects.filter(user__exact=request.user).all()
+    else:
+        return JsonResponse({
+            "error": "user not found"
+        }, status=400)
+
     following_users = [fuser.target for fuser in follows]
-    print(following_users)
 
     # get get posts for each of those users
     all_posts = Post.objects.none()

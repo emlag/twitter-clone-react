@@ -55,7 +55,18 @@ class Post extends Component {
             })
         })
             .then(response => {
-                console.log("update the likes count!")
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                } else {
+                    return response.json();
+                }
+            })
+            .then(data => {
+                console.log("likes updated successfully");
+            })
+            .catch(err => {
+                console.log("likes not updated");
+                console.log(err);
             })
     };
 
@@ -65,17 +76,28 @@ class Post extends Component {
         fetch(`/posts/${this.state.id}`, {
             method: 'PUT',
             headers: {
-               'X-CSRFToken': token
+                'X-CSRFToken': token
             },
             body: JSON.stringify({
                 new_text: this.state.text,
             })
         })
             .then(response => {
-                console.log("update the likes count!")
                 this.setState({
                     isEdit: false
                 });
+
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                } else {
+                    return response.json();
+                }
+            })
+            .then(data => {
+                console.log("text updated successfully");
+            })
+            .catch(err => {
+                console.log("text not updated");
             })
     };
 
@@ -117,14 +139,13 @@ class Post extends Component {
         };
 
         const canEdit = () => {
-            if(this.state.currUser === this.state.username)
-            {
-                return(
-                    <a href="#" onClick={this.showEdit} id="edit-tweet">
-                            {
-                                this.state.isEdit ? "Stop Edit" : "Edit"
-                            }
-                        </a>
+            if (this.state.currUser === this.state.username) {
+                return (
+                    <a onClick={this.showEdit} className="edit-link" id="edit-tweet">
+                        {
+                            this.state.isEdit ? "Stop Edit" : "Edit"
+                        }
+                    </a>
                 )
             }
         };
@@ -132,7 +153,7 @@ class Post extends Component {
         return (
             <div className="post">
                 <div id="tweet-image">
-                    SomeImage
+                    <img src="https://img.icons8.com/dusk/64/000000/name.png"/>
                 </div>
                 <div className="tweet-container">
                     <div className="tweet-header">
