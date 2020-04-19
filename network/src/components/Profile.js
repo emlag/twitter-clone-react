@@ -12,7 +12,6 @@ class Profile extends Component {
 
         getPosts(this, `/posts/${this.props.match.params.username}`);
         this.getProfInfo(this.props.match.params.username);
-        // this.getProfInfo();
     }
 
     constructor(props) {
@@ -23,7 +22,8 @@ class Profile extends Component {
                 username: '',
                 followers: 0,
                 following: 0,
-                email:''
+                email: '',
+                isFollowing: false
             }
 
         };
@@ -31,31 +31,61 @@ class Profile extends Component {
 
     getProfInfo = (currUser) => {
         fetch(`/profreq/${currUser}`)
-            .then( response => {
+            .then(response => {
                 return response.json();
                 // console.log(response);
             })
-            .then( data => {
+            .then(data => {
+                console.log(data);
                 this.setState({
                     currentUser: {
                         username: data["user"],
                         followers: data["followers"],
                         following: data["following"],
-                        email: data["email"]
+                        email: data["email"],
+                        showFollow: data["showFollow"],
+                        isFollowing: data["isFollowing"]
                     }
                 })
             })
     };
 
+    updateFollow = () => {
+        fetch(`/follow/${this.state.currentUser.username}`, {
+            method: "PUT"
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                this.getProfInfo(this.state.currentUser.username);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    };
 
     render() {
+        const followButton = () => {
+            if (this.state.currentUser.showFollow)
+            {
+               return <button onClick={this.updateFollow} className="btn" id="follow-button">
+                        {this.state.currentUser.isFollowing === true ? "UnFollow" : "Follow"}</button>
+            }
+
+        };
         return (
             <div className="profile-container">
                 <div className="profile-header">
                     <div id="profile-image">
                         Image Here
                     </div>
-                    <button className="btn" id="follow-button"> Follow</button>
+                    {followButton()}
                 </div>
                 <div id="profile-username">
                     {this.state.currentUser.username}

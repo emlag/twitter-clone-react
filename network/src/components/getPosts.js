@@ -13,7 +13,8 @@ function getPosts(comp, path) {
                 email: posts[id]["email"],
                 likesCount: posts[id]["likes_count"],
                 timeStamp: posts[id]["timestamp"],
-                id: posts[id]["id"]
+                id: posts[id]["id"],
+                isLiked: posts[id]["isLiked"]
             };
             postsToShow.push(post);
         }

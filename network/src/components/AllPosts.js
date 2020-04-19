@@ -19,7 +19,7 @@ class AllPosts extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.state.currPage !== prevState.currPage) {
             getPosts(this, `posts?page=${this.state.currPage}`);
-            console.log("numPates in didUpdate");
+            console.log("numPages in didUpdate");
             // console.log(this.state.numPages);
             console.log(this.state.currPage);
         }

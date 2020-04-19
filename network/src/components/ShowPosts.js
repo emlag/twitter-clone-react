@@ -7,7 +7,8 @@ function ShowPosts(props) {
         return (
             <Post id={post.id} text={post.text}
                   username={post.author} email={post.email}
-                  likesCount={post.likesCount} timeStamp={post.timeStamp} key={post.id}/>
+                  likesCount={post.likesCount} timeStamp={post.timeStamp}
+                  key={post.id} isLiked={post.isLiked}/>
         )
     });
     return (

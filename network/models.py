@@ -38,3 +38,6 @@ class Follow(models.Model):
         unique_together = ('user', 'target')
 
 
+class Like(models.Model):
+    user = models.ForeignKey(User, related_name='liker', on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='post', on_delete=models.CASCADE)

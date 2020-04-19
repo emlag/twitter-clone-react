@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="33a5cc6b-38c8-4783-b2d0-37cfc01a36a3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/network/src/components/LikeButton.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/network/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/network/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/network/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/network/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/network/src/components/Post.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/Post.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/network/src/components/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/Profile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/network/src/components/ShowPosts.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/ShowPosts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/network/src/components/getPosts.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/getPosts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/network/static/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/static/main.js" afterDir="false" />
@@ -59,6 +61,7 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="project4.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -100,7 +103,7 @@
       <workItem from="1586996098771" duration="3178000" />
       <workItem from="1587001033246" duration="8883000" />
       <workItem from="1587020270791" duration="1856000" />
-      <workItem from="1587242201091" duration="7148000" />
+      <workItem from="1587242201091" duration="18641000" />
     </task>
     <servers />
   </component>
@@ -116,6 +119,22 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state x="578" y="290" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1680.1027@0.23.1680.1027" timestamp="1586849694328" />
+    <state width="2006" height="313" key="GridCell.Tab.0.bottom" timestamp="1587259473536">
+      <screen x="4240" y="159" width="2048" height="1129" />
+    </state>
+    <state width="2006" height="313" key="GridCell.Tab.0.bottom/0.23.2560.1417/4240.159.2048.1129/2560.630.1680.1027@4240.159.2048.1129" timestamp="1587259473536" />
+    <state width="2006" height="313" key="GridCell.Tab.0.center" timestamp="1587259473536">
+      <screen x="4240" y="159" width="2048" height="1129" />
+    </state>
+    <state width="2006" height="313" key="GridCell.Tab.0.center/0.23.2560.1417/4240.159.2048.1129/2560.630.1680.1027@4240.159.2048.1129" timestamp="1587259473536" />
+    <state width="2006" height="313" key="GridCell.Tab.0.left" timestamp="1587259473536">
+      <screen x="4240" y="159" width="2048" height="1129" />
+    </state>
+    <state width="2006" height="313" key="GridCell.Tab.0.left/0.23.2560.1417/4240.159.2048.1129/2560.630.1680.1027@4240.159.2048.1129" timestamp="1587259473536" />
+    <state width="2006" height="313" key="GridCell.Tab.0.right" timestamp="1587259473536">
+      <screen x="4240" y="159" width="2048" height="1129" />
+    </state>
+    <state width="2006" height="313" key="GridCell.Tab.0.right/0.23.2560.1417/4240.159.2048.1129/2560.630.1680.1027@4240.159.2048.1129" timestamp="1587259473536" />
     <state x="2571" y="815" key="SettingsEditor" timestamp="1586314872945">
       <screen x="2560" y="630" width="1680" height="1027" />
     </state>

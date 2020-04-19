@@ -13,6 +13,7 @@ urlpatterns = [
     path("posts/<int:post_id>", views.update_post, name="update_post"),
     path("posts/<str:username>", views.user_posts, name="user_posts"),
     path("profreq/<str:username>", views.profreq, name="profile_request"),
+    path("follow/<str:target_user>", views.follow, name="follow"),
     # match all other pages
     re_path(r'^$', views.index),
     re_path(r'^(?:.*)/?$', views.index)
