@@ -1,26 +1,25 @@
 import React, {Component, useState, useEffect} from 'react';
 import NewPostInput from "./NewPostInput";
 import ShowPosts from "./ShowPosts";
-import getPosts from "./getPosts"
+import getPosts from "./getPosts";
+import {getCookie} from "./Utils";
 
 class Homepage extends Component {
     componentDidMount() {
-        getPosts(this, "/posts"); // create api for this user
+        // getPosts(this, "/posts");
         this.clearInputField();
     }
 
     constructor(props) {
         super(props);
         this.state = {
-            availPosts: [],
+            refresh: true,
             currentPost: {
                 text: '',
                 key: -1
-            },
-            count: 0
+            }
         };
 
-        //this.countOne = this.countOne.bind(this);
         this.useInput = this.useInput.bind(this);
         this.addPost = this.addPost.bind(this);
     }
@@ -43,12 +42,23 @@ class Homepage extends Component {
         })
     };
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.state.postId !== prevState.postId) {
+            console.log("added one ");
+            // this.forceUpdate();
+        }
+    }
+
     addPost = (e) => {
         e.preventDefault();
         const newPost = this.state.currentPost;
+        const token = getCookie('csrftoken');
         //send call to API
         fetch('/compose', {
             method: 'POST',
+            headers: {
+                'X-CSRFToken': token
+            },
             body: JSON.stringify({
                 body: this.state.currentPost.text,
             })
@@ -56,10 +66,14 @@ class Homepage extends Component {
             if (!response.ok) {
                 throw Error(response.statusText)
             }
+            return response.json()
         })
             .then(result => { //if things went well
-                getPosts(this, "/posts"); //change this to appropriate api
+                // getPosts(this, "/posts"); //change this to appropriate api
                 this.clearInputField();
+                this.setState({
+                    refresh: !this.state.refresh
+                });
             })
             .catch(err => { //otherwise print error
                 console.log(err)
@@ -71,8 +85,7 @@ class Homepage extends Component {
             <div>
                 <NewPostInput addPost={this.addPost} postText={this.state.currentPost.text}
                               useInput={this.useInput}> </NewPostInput>
-                <ShowPosts allPosts={this.state.availPosts}/>
-                <h1>Homepage</h1>
+                <ShowPosts pathToPosts={"/posts"} refresh={this.state.refresh}/>
             </div>
         )
     }

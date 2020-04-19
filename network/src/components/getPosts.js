@@ -20,9 +20,11 @@ function getPosts(comp, path) {
         }
         // console.log(postsToShow);
         let numPages = data["num_pages"];
+        let currUser = data["curr_user"];
         comp.setState({
             availPosts: postsToShow,
-            numPages: numPages
+            numPages: numPages,
+            currUser: currUser,
         })
     })
 }

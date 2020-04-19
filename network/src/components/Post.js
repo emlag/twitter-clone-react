@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import {getCookie} from "./Utils";
 
 class Post extends Component {
 
@@ -12,6 +13,7 @@ class Post extends Component {
             likesCount: props.likesCount,
             timeStamp: props.timeStamp,
             prevLiked: props.isLiked,
+            currUser: props.currUser,
             id: props.id,
             isEdit: false
         }
@@ -40,8 +42,13 @@ class Post extends Component {
     };
 
     updatePostLikes = () => {
+        const token = getCookie('csrftoken');
+
         fetch(`/posts/${this.state.id}`, {
             method: 'PUT',
+            headers: {
+                'X-CSRFToken': token
+            },
             body: JSON.stringify({
                 likes_count: this.state.likesCount,
                 create_like: this.state.prevLiked
@@ -53,8 +60,13 @@ class Post extends Component {
     };
 
     updatePostText = () => {
+        const token = getCookie('csrftoken');
+
         fetch(`/posts/${this.state.id}`, {
             method: 'PUT',
+            headers: {
+               'X-CSRFToken': token
+            },
             body: JSON.stringify({
                 new_text: this.state.text,
             })
@@ -104,6 +116,19 @@ class Post extends Component {
             }
         };
 
+        const canEdit = () => {
+            if(this.state.currUser === this.state.username)
+            {
+                return(
+                    <a href="#" onClick={this.showEdit} id="edit-tweet">
+                            {
+                                this.state.isEdit ? "Stop Edit" : "Edit"
+                            }
+                        </a>
+                )
+            }
+        };
+
         return (
             <div className="post">
                 <div id="tweet-image">
@@ -120,11 +145,7 @@ class Post extends Component {
                         <div id="timestamp">
                             {this.state.timeStamp}
                         </div>
-                        <a href="#" onClick={this.showEdit} id="edit-tweet">
-                            {
-                                this.state.isEdit ? "Stop Edit" : "Edit"
-                            }
-                        </a>
+                        {canEdit()}
                     </div>
 
                     {editPostDiv()}

@@ -2,17 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="33a5cc6b-38c8-4783-b2d0-37cfc01a36a3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/network/src/components/Utils.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/network/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/network/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/network/src/components/AllPosts.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/AllPosts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/network/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/network/src/components/Following.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/Following.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/network/src/components/Homepage.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/Homepage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/network/src/components/Post.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/Post.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/network/src/components/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/Profile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/network/src/components/ShowPosts.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/ShowPosts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/network/src/components/getPosts.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/getPosts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/network/static/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/static/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/static/network/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/network/static/network/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/network/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/network/templates/network/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/network/templates/network/layout.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/network/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/network/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -103,7 +105,7 @@
       <workItem from="1586996098771" duration="3178000" />
       <workItem from="1587001033246" duration="8883000" />
       <workItem from="1587020270791" duration="1856000" />
-      <workItem from="1587242201091" duration="18641000" />
+      <workItem from="1587242201091" duration="33059000" />
     </task>
     <servers />
   </component>
@@ -140,14 +142,15 @@
     </state>
     <state x="2571" y="815" key="SettingsEditor/0.23.2560.1417/4240.159.2048.1129/2560.630.1680.1027@2560.630.1680.1027" timestamp="1586314872945" />
     <state x="4253" y="362" key="SettingsEditor/0.23.2560.1417/4240.159.2048.1129/2560.630.1680.1027@4240.159.2048.1129" timestamp="1586207658668" />
-    <state x="4922" y="359" width="683" height="729" key="find.popup" timestamp="1587246311100">
+    <state x="4922" y="359" width="683" height="729" key="find.popup" timestamp="1587294087607">
       <screen x="4240" y="159" width="2048" height="1129" />
     </state>
-    <state x="4922" y="359" width="683" height="729" key="find.popup/0.23.2560.1417/4240.159.2048.1129/2560.630.1680.1027@4240.159.2048.1129" timestamp="1587246311100" />
-    <state x="505" y="187" width="670" height="676" key="search.everywhere.popup" timestamp="1587007493773">
-      <screen x="0" y="23" width="1680" height="1027" />
+    <state x="4922" y="359" width="683" height="729" key="find.popup/0.23.2560.1417/4240.159.2048.1129/2560.630.1680.1027@4240.159.2048.1129" timestamp="1587294087607" />
+    <state x="4856" y="339" width="817" height="744" key="search.everywhere.popup" timestamp="1587293473708">
+      <screen x="4240" y="159" width="2048" height="1129" />
     </state>
     <state x="505" y="187" width="670" height="676" key="search.everywhere.popup/0.23.1680.1027@0.23.1680.1027" timestamp="1587007493773" />
     <state x="3065" y="794" width="670" height="676" key="search.everywhere.popup/0.23.2560.1417/4240.159.2048.1129/2560.630.1680.1027@2560.630.1680.1027" timestamp="1586311604686" />
+    <state x="4856" y="339" width="817" height="744" key="search.everywhere.popup/0.23.2560.1417/4240.159.2048.1129/2560.630.1680.1027@4240.159.2048.1129" timestamp="1587293473708" />
   </component>
 </project>

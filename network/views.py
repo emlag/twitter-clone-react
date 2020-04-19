@@ -43,22 +43,27 @@ def logout_view(request):
 def user_posts(request, username):
     # all_posts = Post.objects.all()
     all_posts = Post.objects.filter(author__username__exact=username)
-    # print("all posts for:" + username)
-    # print(all_posts)
     all_posts = all_posts.order_by("-timestamp").all()
 
-    return JsonResponse([post.serialize() for post in all_posts], safe=False)
+    to_show = paginate(request, all_posts)
+
+    return JsonResponse(to_show, safe=False)
 
 
 def posts(request):
     # Return posts in reverse chronologial order
-    print("in posts/")
     all_posts = Post.objects.all()
     all_posts = all_posts.order_by("-timestamp").all()
 
+    to_show = paginate(request, all_posts)
+
+    return JsonResponse(to_show, safe=False)
+
+
+def paginate(request, posts_to_show):
     # `/posts?page=${pageNum}`
     page_num = int(request.GET.get("page") or 1)
-    p = Paginator(all_posts, 10)
+    p = Paginator(posts_to_show, 10)
     page_show = p.page(page_num)
 
     to_show = []
@@ -72,12 +77,10 @@ def posts(request):
         ser["isLiked"] = like is not None
         to_show.append(ser)
 
-    # posts_json = [post.serialize() for post in page_show]
+    final_json = {"posts": to_show, "num_pages": p.num_pages, "curr_user": request.user.username}
+    return final_json
 
-    return JsonResponse({"posts": to_show, "num_pages": p.num_pages}, safe=False)
 
-
-@csrf_exempt
 def update_post(request, post_id):
     post = Post.objects.get(id=post_id)
 
@@ -94,7 +97,8 @@ def update_post(request, post_id):
                 Like.objects.get(user=request.user, post=post).delete()
 
         if data.get("new_text") is not None:
-            post.body = data["new_text"]
+            if request.user == post.author:  # prevent others from changing tweet text
+                post.body = data["new_text"]
 
         likes = Like.objects.filter(post=post).count()
         post.likes_count = likes
@@ -139,7 +143,6 @@ def profreq(request, username):
 
 
 @login_required
-@csrf_exempt
 def follow(request, target_user):
     target = User.objects.get(username__exact=target_user)
     if target is not None:
@@ -185,13 +188,11 @@ def following(request):
 
     # order_by those posts
     all_posts = all_posts.order_by("-timestamp").all()
-    # serialize all those posts
-    # send them back
+    to_show = paginate(request, all_posts)
 
-    return JsonResponse([post.serialize() for post in all_posts], safe=False)
+    return JsonResponse(to_show, safe=False)
 
 
-@csrf_exempt
 @login_required
 def compose(request):
     if request.method != "POST":
@@ -204,7 +205,7 @@ def compose(request):
     post = Post(author=author, body=body)
     post.save()
 
-    return JsonResponse({"message": "Post saved successfully."}, status=201)
+    return JsonResponse({"newPostId": post.id}, safe=False)
 
 
 def register(request):

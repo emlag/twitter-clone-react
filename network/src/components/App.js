@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import NewPostInput from "./NewPostInput";
-import ShowPosts from "./ShowPosts";
-import Following from "./Following";
-import AllPosts from "./AllPosts";
+import following from "./Following";
+import allPosts from "./AllPosts";
 import Homepage from "./Homepage";
 import Profile from "./Profile";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -15,8 +13,8 @@ class App extends Component {
                 <div>
                     <Switch>
                         <Route path="/" exact component={Homepage}/>
-                        <Route path="/following" exact component={Following}/>
-                        <Route path="/allposts" exact component={AllPosts}/>
+                        <Route path="/following" exact component={following}/>
+                        <Route path="/allposts" exact component={allPosts}/>
                         <Route path="/profile/:username" exact component={Profile}/>
                     </Switch>
                 </div>

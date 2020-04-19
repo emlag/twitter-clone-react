@@ -1,25 +1,17 @@
 import React, {Component} from 'react';
 import ShowPosts from "./ShowPosts";
-import getPosts from "./getPosts";
+import {getCookie} from "./Utils";
 
 class Profile extends Component {
     componentDidMount() {
-        this.setState({
-            currentUser: {
-                username: this.props.match.params.username
-            }
-        });
-
-        getPosts(this, `/posts/${this.props.match.params.username}`);
         this.getProfInfo(this.props.match.params.username);
     }
 
     constructor(props) {
         super(props);
         this.state = {
-            availPosts: [],
             currentUser: {
-                username: '',
+                username: props.match.params.username,
                 followers: 0,
                 following: 0,
                 email: '',
@@ -51,8 +43,13 @@ class Profile extends Component {
     };
 
     updateFollow = () => {
+        const token = getCookie('csrftoken');
+
         fetch(`/follow/${this.state.currentUser.username}`, {
-            method: "PUT"
+            method: "PUT",
+            headers: {
+                'X-CSRFToken': token
+            }
         })
             .then(response => {
                 if (!response.ok) {
@@ -77,8 +74,8 @@ class Profile extends Component {
                return <button onClick={this.updateFollow} className="btn" id="follow-button">
                         {this.state.currentUser.isFollowing === true ? "UnFollow" : "Follow"}</button>
             }
-
         };
+
         return (
             <div className="profile-container">
                 <div className="profile-header">
@@ -96,7 +93,7 @@ class Profile extends Component {
                 <div id="profile-follow">
                     {this.state.currentUser.following} Following {this.state.currentUser.followers} Followers
                 </div>
-                <ShowPosts allPosts={this.state.availPosts}/>
+                <ShowPosts pathToPosts={`/posts/${this.state.currentUser.username}`}/>
             </div>
         );
     }
