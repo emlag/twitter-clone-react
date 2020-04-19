@@ -57,7 +57,7 @@ body {
 
 .tweet-header {
     display: grid;
-    grid-template-columns: 1.5fr .75fr .75fr 4.5fr;
+    grid-template-columns: 1fr 1.25fr 1.25fr 4fr;
     grid-auto-columns: minmax(30px, auto);
 }
 
@@ -170,6 +170,14 @@ body {
 
 .is-liked {
     color: tomato;
+}
+
+.not-liked {
+    color: rgba(29, 161, 242, 1.00);
+}
+
+.not-liked:hover, .is-liked:hover {
+    cursor: pointer;
 }
 
 /*Animation Settings*/

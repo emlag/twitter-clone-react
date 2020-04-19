@@ -56,14 +56,25 @@ def posts(request):
     all_posts = Post.objects.all()
     all_posts = all_posts.order_by("-timestamp").all()
 
-    # `/posts?start=${start}&end=${end}`
+    # `/posts?page=${pageNum}`
     page_num = int(request.GET.get("page") or 1)
     p = Paginator(all_posts, 10)
     page_show = p.page(page_num)
     posts_json = [post.serialize() for post in page_show]
-    # posts_json.append({"num_pages": p.num_pages})
 
     return JsonResponse({"posts": posts_json, "num_pages": p.num_pages}, safe=False)
+
+
+@csrf_exempt
+def update_post(request, post_id):
+    if request.method == "PUT":
+        return JsonResponse({
+            "success": "all went well"
+        }, status=204)
+    else:
+        return JsonResponse({
+            "error": "PUT request required."
+        }, status=400)
 
 
 def profreq(request, username):

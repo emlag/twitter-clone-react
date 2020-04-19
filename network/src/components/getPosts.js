@@ -11,7 +11,9 @@ function getPosts(comp, path) {
                 author: posts[id]["author"],
                 text: posts[id]["body"],
                 email: posts[id]["email"],
-                key: id
+                likesCount: posts[id]["likes_count"],
+                timeStamp: posts[id]["timestamp"],
+                id: posts[id]["id"]
             };
             postsToShow.push(post);
         }
