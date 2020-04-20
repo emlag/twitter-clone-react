@@ -3,3 +3,33 @@ Sources:
 
 * Django Models: https://getstream.io/blog/build-a-scalable-twitter-clone-with-django-and-stream/
 
+* React Router: https://www.youtube.com/watch?v=Law7wfdg_ls
+
+##Network
+
+This project mimics a simple social network where users can create and interact with posts. 
+
+####Dependencies:
+* Webpack
+* React.js
+* Bable
+* Django
+
+####Running the Project
+1. Install webpack: npm i webpack webpack-cli --save-dev
+2. Install bable: npm i @babel/core babel-loader @babel/preset-env @babel/preset-react --save-dev
+3. Install React: npm i react react-dom --save-dev
+
+####Important Command to Build project:
+1. npm run dev
+2. python manage.py runserver
+
+
+### Known Issues
+
+When a user is not logged in, he can click on the like button for a post. The UI shows the
+like as successful because it is optimistic but upon page refresh the server would have
+invalidated the like. Ideally this would happen without page refresh, but it doesn't currently.
+
+
+

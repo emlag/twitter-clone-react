@@ -3,21 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="33a5cc6b-38c8-4783-b2d0-37cfc01a36a3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/src/components/AllPosts.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/AllPosts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/src/components/Following.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/Following.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/src/components/Homepage.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/Homepage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/src/components/LikeButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/LikeButton.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/src/components/NewPostInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/NewPostInput.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/src/components/Post.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/Post.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/src/components/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/src/components/ShowPosts.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/ShowPosts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/src/components/Utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/Utils.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/src/components/getPosts.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/src/components/getPosts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/static/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/network/static/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/network/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/network/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/network/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +98,7 @@
       <workItem from="1587001033246" duration="8883000" />
       <workItem from="1587020270791" duration="1856000" />
       <workItem from="1587242201091" duration="33524000" />
-      <workItem from="1587327891749" duration="13969000" />
+      <workItem from="1587327891749" duration="14665000" />
     </task>
     <servers />
   </component>
