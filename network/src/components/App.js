@@ -6,6 +6,11 @@ import Homepage from "./Homepage";
 import Profile from "./Profile";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
+
+/**
+ * The single page app for this project
+ *
+ */
 class App extends Component {
     render() {
         return (

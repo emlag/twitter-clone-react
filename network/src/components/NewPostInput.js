@@ -1,5 +1,13 @@
 import React from 'react';
 
+/**
+ * Creates a card for user input. The onSubmit property will take in a method that should update
+ * the state of the parent to this component.
+ *
+ * @param props comp the component whose state this method will change
+ * @public
+ */
+
 function NewPostInput(props) {
     return (
         <div className="card">

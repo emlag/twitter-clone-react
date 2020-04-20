@@ -2,6 +2,13 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {getCookie} from "./Utils";
 
+
+/**
+ * Each post has its own state, which manages all of the information within that post and
+ * makes fetch calls to the server to update this posts information.
+ *
+ * Parent component is responsible for initial props.
+ */
 class Post extends Component {
 
     constructor(props) {

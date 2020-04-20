@@ -2,6 +2,13 @@ import React, {Component} from 'react';
 import Post from "./Post";
 import getPosts from "./getPosts";
 
+/**
+ * Class used to show posts for a specific path.
+ * This class uses the method getPosts to fetch posts. getPosts will
+ * update this instance's state so that the correct posts can be displayed.
+ * This class also handles pagination and requests for specific pages.
+ *
+ */
 class ShowPosts extends Component {
     componentDidMount(props) {
         getPosts(this, `${this.state.path}?page=${this.state.currPage}`);

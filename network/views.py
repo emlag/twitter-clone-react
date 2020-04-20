@@ -12,6 +12,10 @@ from .models import User, Post, Follow, Like
 
 
 def index(request):
+    """
+        As a single page app, many links and routes will default to index.
+        This will render the single html used, outside of the login and register pages.
+    """
     return render(request, "network/index.html")
 
 
@@ -41,7 +45,19 @@ def logout_view(request):
 
 
 def user_posts(request, username):
-    # all_posts = Post.objects.all()
+    """
+        Shows posts for a particular user, if that user exists
+        follows the url, /posts/username
+        This is used in the profile view.
+
+        Args:
+            request (HttpRequest): contains metadata about the page request
+            username (string): the username for the author of the posts being requested
+
+        Returns:
+            an JsonResponse object with the calculated options
+    """
+
     all_posts = Post.objects.filter(author__username__exact=username)
     all_posts = all_posts.order_by("-timestamp").all()
 
@@ -51,7 +67,15 @@ def user_posts(request, username):
 
 
 def posts(request):
-    # Return posts in reverse chronologial order
+    """
+        Used to fetch all posts in the database
+
+        Args:
+            request (HttpRequest): contains metadata about the page request
+
+        Returns:
+            an JsonResponse object with the calculated options
+    """
     all_posts = Post.objects.all()
     all_posts = all_posts.order_by("-timestamp").all()
 
@@ -61,13 +85,25 @@ def posts(request):
 
 
 def paginate(request, posts_to_show):
-    # `/posts?page=${pageNum}`
+    """
+        Creates pages for the QuerySet requested, the user is expected to
+        use the format `/posts?page=${pageNum}` to request a specific page.
+
+        Args:
+            request (HttpRequest): contains metadata about the page request
+            posts_to_show (QuerySet): this is a Query set calculated by the calling function
+
+        Returns:
+            an JsonResponse object with the calculated options
+    """
+
     page_num = int(request.GET.get("page") or 1)
     p = Paginator(posts_to_show, 10)
     page_show = p.page(page_num)
 
     to_show = []
 
+    # serialize each post and decide whether the current user likes that post
     for post in page_show:
         ser = post.serialize()
 
@@ -82,11 +118,22 @@ def paginate(request, posts_to_show):
         ser["isLiked"] = like is not None
         to_show.append(ser)
 
+    # return the final json with serialized posts and information for UI pagination
     final_json = {"posts": to_show, "num_pages": p.num_pages, "curr_user": request.user.username}
     return final_json
 
 
 def update_post(request, post_id):
+    """
+        Currently used to update a post's text or likes
+
+        Args:
+            request (HttpRequest): contains metadata about the page request
+            post_id (integer): the id of the post to be updated
+
+        Returns:
+            an JsonResponse which explains success or failure
+    """
     try:
         post = Post.objects.get(id=post_id)
     except Post.DoesNotExist:
@@ -102,6 +149,7 @@ def update_post(request, post_id):
     if request.method == "PUT":
         data = json.loads(request.body)
 
+        # update by creating a new like or unlike by deleting existing like
         if data.get("create_like") is not None:
             if data["create_like"]:
                 new_like = Like(user=request.user, post=post)
@@ -109,6 +157,7 @@ def update_post(request, post_id):
             else:
                 Like.objects.get(user=request.user, post=post).delete()
 
+        # update post's text
         if data.get("new_text") is not None:
             if request.user != post.author:  # prevent others from changing tweet text
                 return JsonResponse({
@@ -130,6 +179,16 @@ def update_post(request, post_id):
 
 
 def profreq(request, username):
+    """
+        Returns information about a user. This is used to display a user's profile.
+
+        Args:
+            request (HttpRequest): contains metadata about the page request
+            username (string): the username to query info for
+
+        Returns:
+            an JsonResponse object user's info
+    """
     try:
         user_found = User.objects.get(username__exact=username)
     except User.DoesNotExist:
@@ -137,9 +196,11 @@ def profreq(request, username):
             "error": "user not found"
         }, status=400)
 
+    # how many followers and followings are found?
     is_following = Follow.objects.filter(user__username__exact=username).all()
     followers = Follow.objects.filter(target__username__exact=username).all()
 
+    # is the current logged in user following the user whose profile we're viewing?
     if request.user.is_authenticated:
         try:
             fol = Follow.objects.get(user=request.user, target=user_found)
@@ -148,6 +209,7 @@ def profreq(request, username):
     else:
         fol = None
 
+    # we can't follow ourselves
     if request.user.is_authenticated:
         show = request.user.username != username
     else:
@@ -167,6 +229,16 @@ def profreq(request, username):
 
 @login_required
 def follow(request, target_user):
+    """
+        User to create a follow between two users.
+
+        Args:
+            request (HttpRequest): contains metadata about the page request
+            target_user (string): the username that the current logged in user will follow
+
+        Returns:
+            an JsonResponse containing success or failure message
+    """
     try:
         target = User.objects.get(username__exact=target_user)
         if request.user.username == target_user:
@@ -190,7 +262,7 @@ def follow(request, target_user):
                     "isFollowing": True
                 }, safe=False)
             else:
-                is_follow.delete()
+                is_follow.delete()  # unFollow
                 return JsonResponse({
                     "isFollowing": False
                 }, safe=False)
@@ -206,7 +278,16 @@ def follow(request, target_user):
 
 @login_required
 def following(request):
-    # get users that this guy is following
+    """
+        Returns all of the posts of the users that the logged in user is following
+
+        Args:
+            request (HttpRequest): contains metadata about the page request
+
+        Returns:
+            an JsonResponse object user's info
+    """
+    # get users that logged in user is following
     if request.user.is_authenticated:
         follows = Follow.objects.filter(user__exact=request.user).all()
     else:
@@ -231,6 +312,15 @@ def following(request):
 
 @login_required
 def compose(request):
+    """
+        Creates a new post.
+
+        Args:
+            request (HttpRequest): contains metadata about the page request
+
+        Returns:
+            an JsonResponse with error status or post's id on success
+    """
     if request.method != "POST":
         return JsonResponse({"error": "POST request required"}, status=400)
 

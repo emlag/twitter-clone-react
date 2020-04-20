@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import ShowPosts from "./ShowPosts";
 import {getCookie} from "./Utils";
 
+/**
+ * Holds state and components for a Profile.
+ * This component is current called by a Link from each post handled by React Router.
+ */
 class Profile extends Component {
     componentDidMount() {
         this.getProfInfo(this.props.match.params.username);
@@ -21,6 +25,13 @@ class Profile extends Component {
         };
     }
 
+
+    /**
+     * Fetches profile info for a user and updates this component's state accordingly
+     *
+     * @param {string} currUser the user whose info will be fetched
+     * @public
+     */
     getProfInfo = (currUser) => {
         fetch(`/profreq/${currUser}`)
             .then(response => {
@@ -50,6 +61,12 @@ class Profile extends Component {
             })
     };
 
+    /**
+     * Sends message to server to toggle follow/unFollow between currently
+     * signed in user and the user whose profile is being viewed.
+     *
+     * @public
+     */
     updateFollow = () => {
         const token = getCookie('csrftoken');
 
@@ -71,7 +88,7 @@ class Profile extends Component {
                 this.getProfInfo(this.state.currentUser.username);
             })
             .catch(err => {
-
+                console.log(err);
             })
     };
 

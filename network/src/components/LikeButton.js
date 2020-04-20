@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
 
+/**
+ * A button that shows likes for a post. Changes state in parent which
+ * causes refresh for the button.
+ *
+ * Current ISSUE: When a user is not logged in, the optimistic nature of this
+ * algorithm causes the UI to show that the like was successful, but the database
+ * returns an error and the like is not saved.
+ */
 class LikeButton extends Component {
     state = {
         likes: this.props.likesCount,

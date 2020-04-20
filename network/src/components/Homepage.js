@@ -4,9 +4,15 @@ import ShowPosts from "./ShowPosts";
 import getPosts from "./getPosts";
 import {getCookie} from "./Utils";
 
+
+/**
+ * Holds state and components for the Homepage.
+ * The state us used to kep track of the input post's information when
+ * the user wants to write a new post.
+ *
+ */
 class Homepage extends Component {
     componentDidMount() {
-        // getPosts(this, "/posts");
         this.clearInputField();
     }
 
@@ -24,6 +30,12 @@ class Homepage extends Component {
         this.addPost = this.addPost.bind(this);
     }
 
+    /**
+     * Updates the currentPosts state when the text area has changed.
+     *
+     * @param e the event passed in by onClick
+     * @public
+     */
     useInput = (e) => {
         this.setState({
             currentPost: {
@@ -33,6 +45,11 @@ class Homepage extends Component {
         })
     };
 
+    /**
+     * Clear's new posts text area and key
+     *
+     * @public
+     */
     clearInputField = () => {
         this.setState({
             currentPost: {
@@ -42,17 +59,17 @@ class Homepage extends Component {
         })
     };
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.state.postId !== prevState.postId) {
-            console.log("added one ");
-            // this.forceUpdate();
-        }
-    }
-
+    /**
+     * Use API to send a POST request to create a new post.
+     *
+     * @param e the event passed in by onClick
+     * @public
+     */
     addPost = (e) => {
         e.preventDefault();
         const newPost = this.state.currentPost;
         const token = getCookie('csrftoken');
+
         //send call to API
         fetch('/compose', {
             method: 'POST',
@@ -69,8 +86,9 @@ class Homepage extends Component {
             return response.json()
         })
             .then(result => { //if things went well
-                // getPosts(this, "/posts"); //change this to appropriate api
                 this.clearInputField();
+
+                //refresh the posts shown on this page
                 this.setState({
                     refresh: !this.state.refresh
                 });
