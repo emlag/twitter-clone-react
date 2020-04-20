@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="33a5cc6b-38c8-4783-b2d0-37cfc01a36a3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +23,13 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
   </component>
   <component name="ProjectId" id="1aBSgUCp2lVk4NMyVf2ANZjasvw" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -98,7 +105,8 @@
       <workItem from="1587001033246" duration="8883000" />
       <workItem from="1587020270791" duration="1856000" />
       <workItem from="1587242201091" duration="33524000" />
-      <workItem from="1587327891749" duration="14665000" />
+      <workItem from="1587327891749" duration="14961000" />
+      <workItem from="1587345787535" duration="282000" />
     </task>
     <servers />
   </component>
