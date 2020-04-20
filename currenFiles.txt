@@ -1,0 +1,17 @@
+.
+..
+.babelrc
+.git
+.gitignore
+.idea
+README.md
+currenFiles.txt
+db.sqlite3
+manage.py
+network
+node_modules
+output.txt
+package-lock.json
+package.json
+project4
+webpack.config.js

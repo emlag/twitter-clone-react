@@ -8,14 +8,15 @@ This project mimics a simple social network where users can create and interact 
 * Bable
 * Django
 
-#### Running the Project
+#### Important Commands to Build project:
+1. npm install
+2. npm run dev
+3. python manage.py runserver
+
+#### Dependencies installed
 1. Install webpack: npm i webpack webpack-cli --save-dev
 2. Install bable: npm i @babel/core babel-loader @babel/preset-env @babel/preset-react --save-dev
 3. Install React: npm i react react-dom --save-dev
-
-#### Important Command to Build project:
-1. npm run dev
-2. python manage.py runserver
 
 
 ### Known Issues
